@@ -1,0 +1,81 @@
+INSERT INTO Genre (name) VALUES
+('Rock'),
+('Pop'),
+('Jazz');
+
+
+INSERT INTO Artist (name) VALUES
+('The Rolling Codes'),
+('Alice Syntax'),
+('DJ NullPointer'),
+('Miles Data');
+
+
+INSERT INTO Album (title, release_year) VALUES
+('Bugged Nights', 2020),
+('Syntax Dreams', 2021),
+('Loop Infinity', 2019);
+
+INSERT INTO Track (title, duration, album_id)
+SELECT 'Lonely Bit', '02:50:00', album_id 
+FROM Album WHERE title='Syntax Dreams';
+
+
+INSERT INTO Artist_Album (artist_id, album_id)
+SELECT a.artist_id, al.album_id
+FROM Artist a
+JOIN Album al ON (
+    (a.name = 'The Rolling Codes' AND al.title = 'Bugged Nights')
+ OR (a.name = 'Alice Syntax'     AND al.title = 'Syntax Dreams')
+ OR (a.name = 'DJ NullPointer'   AND al.title = 'Loop Infinity')
+);
+
+
+INSERT INTO Track (title, duration, album_id)
+SELECT 'Error 404', '03:45:00', album_id FROM Album WHERE title='Bugged Nights';
+INSERT INTO Track (title, duration, album_id)
+SELECT 'Segmentation Fault', '04:12:00', album_id FROM Album WHERE title='Bugged Nights';
+
+INSERT INTO Track (title, duration, album_id)
+SELECT 'Hello World', '03:30:00', album_id FROM Album WHERE title='Syntax Dreams';
+INSERT INTO Track (title, duration, album_id)
+SELECT 'If Else Love', '04:05:00', album_id FROM Album WHERE title='Syntax Dreams';
+
+INSERT INTO Track (title, duration, album_id)
+SELECT 'While True', '05:10:00', album_id FROM Album WHERE title='Loop Infinity';
+INSERT INTO Track (title, duration, album_id)
+SELECT 'Null Vibes', '04:55:00', album_id FROM Album WHERE title='Loop Infinity';
+
+
+INSERT INTO Collection (title, release_year) VALUES
+('Top Rock Hits', 2021),
+('Pop Energy', 2022),
+('Jazz Coding', 2020),
+('Electronic Mix', 2023);
+
+
+INSERT INTO Artist_Genre (artist_id, genre_id)
+SELECT a.artist_id, g.genre_id
+FROM Artist a, Genre g
+WHERE (a.name='The Rolling Codes' AND g.name='Rock')
+   OR (a.name='Alice Syntax'     AND g.name='Pop')
+   OR (a.name='DJ NullPointer'   AND g.name='Pop')
+   OR (a.name='DJ NullPointer'   AND g.name='Rock')
+   OR (a.name='Miles Data'       AND g.name='Jazz');
+
+
+INSERT INTO Track_Collection (track_id, collection_id)
+SELECT t.track_id, c.collection_id
+FROM Track t, Collection c
+WHERE (t.title='Error 404'         AND c.title='Top Rock Hits')
+   OR (t.title='Segmentation Fault' AND c.title='Top Rock Hits')
+   OR (t.title='Hello World'        AND c.title='Pop Energy')
+   OR (t.title='If Else Love'       AND c.title='Pop Energy')
+   OR (t.title='If Else Love'       AND c.title='Jazz Coding')
+   OR (t.title='While True'         AND c.title='Jazz Coding')
+   OR (t.title='While True'         AND c.title='Electronic Mix')
+   OR (t.title='Null Vibes'         AND c.title='Electronic Mix');
+
+INSERT INTO Track (title, duration, album_id)
+SELECT 'Lonely Bit', '02:50:00', album_id 
+FROM Album WHERE title='Syntax Dreams';
